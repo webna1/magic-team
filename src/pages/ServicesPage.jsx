@@ -71,7 +71,7 @@ export default function ServicesPage({ navigate }) {
       </section>
 
       <section style={{ padding: '0 40px 120px', maxWidth: 1200, margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+        <div className="r-grid-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
           {SERVICES_FULL.map((s, i) => <ServiceCard key={i} s={s} index={i} />)}
         </div>
       </section>

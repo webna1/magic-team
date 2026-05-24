@@ -50,7 +50,7 @@ export function Navbar({ currentPage, navigate }) {
       borderBottom: scrolled ? '1px solid rgba(232,180,248,0.08)' : 'none',
       transition: 'all 0.35s ease',
       padding: '0 40px',
-    }}>
+    }} className="mob-nav">
       <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 72 }}>
         <LogoFull navigate={navigate} />
 
@@ -94,7 +94,7 @@ export function Navbar({ currentPage, navigate }) {
       </div>
 
       {menuOpen && (
-        <div style={{ background: 'rgba(23,9,38,0.98)', borderTop: '1px solid rgba(232,180,248,0.1)', padding: '16px 40px 24px' }}>
+        <div className="mob-menu" style={{ background: 'rgba(23,9,38,0.98)', borderTop: '1px solid rgba(232,180,248,0.1)', padding: '16px 40px 24px' }}>
           {NAV_LINKS.map(link => (
             <button
               key={link.page}
@@ -149,7 +149,7 @@ export function Footer({ navigate }) {
             </div>
           ))}
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 32 }}>
+        <div className="r-footer-bottom" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 32 }}>
           <p style={{ color: '#5c4470', fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>© 2026 MagicTeam. All rights reserved.</p>
           <p style={{ color: '#5c4470', fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>Privacy · Terms · Cookies</p>
         </div>

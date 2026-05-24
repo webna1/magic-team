@@ -142,7 +142,7 @@ export default function HomePage({ navigate }) {
             <SecondaryBtn large onClick={() => navigate('work')}>View Our Work</SecondaryBtn>
           </div>
 
-          <div style={{ display: 'flex', gap: 0, marginTop: 80, justifyContent: 'center', borderTop: '1px solid rgba(232,180,248,0.1)', paddingTop: 48, flexWrap: 'wrap' }}>
+          <div className="r-stats" style={{ display: 'flex', gap: 0, marginTop: 80, justifyContent: 'center', borderTop: '1px solid rgba(232,180,248,0.1)', paddingTop: 48, flexWrap: 'wrap' }}>
             {STATS.map((s, i) => (
               <div key={i} style={{ padding: '0 40px', textAlign: 'center', borderRight: i < STATS.length - 1 ? '1px solid rgba(232,180,248,0.1)' : 'none' }}>
                 <div style={{ fontFamily: "'DM Serif Display', serif", fontSize: 'clamp(32px, 4vw, 48px)', color: '#e8b4f8', fontWeight: 400 }}>{s.value}</div>
@@ -162,7 +162,7 @@ export default function HomePage({ navigate }) {
 
       {/* SERVICES PREVIEW */}
       <section style={{ padding: '120px 40px', maxWidth: 1200, margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start' }}>
+        <div className="r-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start' }}>
           <div>
             <SectionHeading tag="What We Do" title={"Craft that converts.\nStrategy that scales."} subtitle="From positioning to production — we handle every layer of your brand's presence." />
             <SecondaryBtn onClick={() => navigate('services')}>Explore All Services →</SecondaryBtn>
@@ -177,12 +177,12 @@ export default function HomePage({ navigate }) {
       <section style={{ padding: '80px 40px', background: '#0f0619', borderTop: '1px solid rgba(232,180,248,0.06)', borderBottom: '1px solid rgba(232,180,248,0.06)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <SectionHeading tag="Featured Work" title="Results that speak." center />
-          <div className="reveal" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0, borderRadius: 24, overflow: 'hidden', border: '1px solid rgba(232,180,248,0.1)', opacity: 0, transform: 'translateY(30px)', transition: 'all 0.7s ease' }}>
+          <div className="reveal r-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0, borderRadius: 24, overflow: 'hidden', border: '1px solid rgba(232,180,248,0.1)', opacity: 0, transform: 'translateY(30px)', transition: 'all 0.7s ease' }}>
             <div style={{ background: 'repeating-linear-gradient(45deg, rgba(232,180,248,0.02) 0px, rgba(232,180,248,0.02) 1px, transparent 1px, transparent 30px), #1a0926', minHeight: 480, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
               <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 40% 50%, rgba(200,50,212,0.15) 0%, transparent 60%)' }} />
               <span style={{ color: '#5c4470', fontFamily: 'monospace', fontSize: 12, letterSpacing: '0.08em' }}>[ campaign imagery ]</span>
             </div>
-            <div style={{ padding: '56px 56px', background: '#13082a', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <div className="r-case-text" style={{ padding: '56px 56px', background: '#13082a', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               <Tag>Brand Strategy + Campaign</Tag>
               <h3 style={{ marginTop: 20, fontFamily: "'DM Serif Display', serif", fontWeight: 400, fontSize: 36, color: '#f0e4ff', lineHeight: 1.2, letterSpacing: '-0.02em' }}>Luminary Ventures — Redefining a Category</h3>
               <p style={{ marginTop: 20, color: '#a07ab8', fontFamily: "'DM Sans', sans-serif", fontSize: 16, lineHeight: 1.7 }}>A full brand repositioning and 90-day campaign that drove a 2.8× increase in qualified leads and cemented their place as the market's premium choice.</p>
@@ -205,7 +205,7 @@ export default function HomePage({ navigate }) {
       {/* PROCESS */}
       <section style={{ padding: '120px 40px', maxWidth: 1200, margin: '0 auto' }}>
         <SectionHeading tag="How We Work" title={"Simple process.\nExceptional results."} center subtitle="We remove the complexity so you can focus on growing your business." />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24 }}>
+        <div className="r-grid-4" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24 }}>
           {PROCESS_STEPS.map((step, i) => (
             <div key={i} className="reveal" style={{ padding: 32, borderRadius: 20, border: '1px solid rgba(232,180,248,0.1)', background: 'rgba(34,13,56,0.4)', position: 'relative', overflow: 'hidden', opacity: 0, transform: 'translateY(24px)', transition: `all 0.6s ease ${i * 0.1}s` }}>
               <div style={{ position: 'absolute', top: -20, right: -10, fontFamily: "'DM Serif Display', serif", fontSize: 80, color: 'rgba(232,180,248,0.05)', fontWeight: 400, lineHeight: 1, userSelect: 'none' }}>{step.n}</div>

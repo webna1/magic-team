@@ -118,7 +118,7 @@ function ProjectCard({ project, onClick }) {
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       onClick={() => onClick(project)}
-      className="reveal"
+      className={`reveal${isLarge ? ' r-work-span' : ''}`}
       style={{
         gridColumn: isLarge ? 'span 2' : 'span 1',
         borderRadius: 20,
@@ -294,7 +294,7 @@ function CaseStudyModal({ project, onClose }) {
         </div>
 
         {/* Modal body */}
-        <div style={{ padding: '48px 56px 56px' }}>
+        <div className="r-modal-body" style={{ padding: '48px 56px 56px' }}>
           <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', marginBottom: 20, alignItems: 'center' }}>
             <Tag>{project.category}</Tag>
             <span style={{ color: '#5c4470', fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>{project.year} · {detail.duration}</span>
@@ -307,7 +307,7 @@ function CaseStudyModal({ project, onClose }) {
           </p>
 
           {/* Results row */}
-          <div style={{
+          <div className="r-modal-res" style={{
             display: 'flex',
             marginBottom: 48,
             background: `${project.accentColor}0d`,
@@ -327,7 +327,7 @@ function CaseStudyModal({ project, onClose }) {
           </div>
 
           {/* Problem / Solution */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, marginBottom: 40 }}>
+          <div className="r-modal-ps" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, marginBottom: 40 }}>
             <div>
               <h4 style={{ color: '#e8b4f8', fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 14 }}>The Problem</h4>
               <p style={{ color: '#a07ab8', fontFamily: "'DM Sans', sans-serif", fontSize: 15, lineHeight: 1.85 }}>{detail.problem}</p>
@@ -424,7 +424,7 @@ export default function WorkPage({ navigate }) {
 
       {/* ── Grid ── */}
       <section style={{ padding: '0 40px 120px', maxWidth: 1200, margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+        <div className="r-grid-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
           {filtered.map(p => <ProjectCard key={p.id} project={p} onClick={setSelected} />)}
         </div>
       </section>

@@ -125,3 +125,40 @@ input::placeholder, textarea::placeholder { color: #5c4470; }
 @media (max-width: 700px) {
   .marquee-track { animation-duration: 28s; }
 }
+
+/* ── Touch devices: kill custom cursor ── */
+@media (hover: none) and (pointer: coarse) {
+  * { cursor: auto !important; }
+  #magic-cursor, #cursor-ring, .cursor-spark { display: none !important; }
+}
+
+/* ── Phone layout overrides (≤768px) ── */
+@media (max-width: 768px) {
+  section { padding-left: 20px !important; padding-right: 20px !important; }
+
+  .mob-nav  { padding-left: 20px !important; padding-right: 20px !important; }
+  .mob-menu { padding-left: 20px !important; padding-right: 20px !important; }
+
+  .r-grid-2 { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .r-grid-3 { grid-template-columns: 1fr !important; gap: 20px !important; }
+  .r-grid-4 { grid-template-columns: 1fr 1fr !important; gap: 16px !important; }
+
+  .r-stats   { flex-wrap: wrap !important; }
+  .r-stats > div { flex: 0 0 50% !important; border-right: none !important; padding: 16px 0 !important; }
+
+  .r-case-text  { padding: 32px 24px !important; }
+  .r-work-span  { grid-column: span 1 !important; }
+
+  .r-modal-body { padding: 24px 20px 32px !important; }
+  .r-modal-ps   { grid-template-columns: 1fr !important; gap: 20px !important; }
+  .r-modal-res  { flex-wrap: wrap !important; }
+  .r-modal-res > div {
+    flex: 0 0 50% !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(232,180,248,0.08) !important;
+    padding: 16px 0 !important;
+  }
+  .r-modal-res > div:last-child { border-bottom: none !important; }
+
+  .r-footer-bottom { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
+}

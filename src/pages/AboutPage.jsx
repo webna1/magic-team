@@ -66,7 +66,7 @@ export default function AboutPage({ navigate }) {
     <div>
       <section style={{ padding: '160px 40px 100px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', top: 0, right: '10%', width: 500, height: 500, background: 'radial-gradient(circle, rgba(200,50,212,0.12) 0%, transparent 65%)', pointerEvents: 'none' }} />
-        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
+        <div className="r-grid-2" style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
           <div>
             <Tag>About Us</Tag>
             <h1 style={{ marginTop: 20, fontFamily: "'DM Serif Display', serif", fontWeight: 400, fontSize: 'clamp(44px, 5.5vw, 68px)', lineHeight: 1.1, color: '#f0e4ff', letterSpacing: '-0.03em' }}>
@@ -89,7 +89,7 @@ export default function AboutPage({ navigate }) {
 
       <section style={{ padding: '80px 40px 100px', background: '#0f0619', borderTop: '1px solid rgba(232,180,248,0.06)', borderBottom: '1px solid rgba(232,180,248,0.06)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
+          <div className="r-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
             <div>
               <Tag>Mission</Tag>
               <h2 style={{ marginTop: 20, fontFamily: "'DM Serif Display', serif", fontWeight: 400, fontSize: 'clamp(32px, 3.5vw, 48px)', color: '#f0e4ff', lineHeight: 1.2, letterSpacing: '-0.02em' }}>
@@ -133,7 +133,7 @@ export default function AboutPage({ navigate }) {
 
       <section style={{ padding: '0 40px 120px', maxWidth: 1200, margin: '0 auto' }}>
         <SectionHeading tag="The Team" title={"The people behind\nthe magic."} center />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+        <div className="r-grid-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
           {TEAM.map((member, i) => <TeamCard key={i} member={member} index={i} />)}
         </div>
       </section>
