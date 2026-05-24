@@ -1,151 +1,232 @@
 import { useState } from 'react';
-import { PrimaryBtn, Tag } from '../components/shared';
+import { Tag } from '../components/shared';
 
-const SERVICES_LIST = ['Brand Strategy', 'Content Creation', 'Digital Marketing', 'Web Design', 'Social Media', 'Creative Direction', 'Other'];
-const BUDGETS = ['Under $5K', '$5K – $15K', '$15K – $50K', '$50K+', 'Not sure yet'];
+const CONTACT_ITEMS = [
+  {
+    label: 'Email',
+    value: 'hello@magicteam.co',
+    href: 'mailto:hello@magicteam.co',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ width: 20, height: 20 }}>
+        <rect x="2" y="4" width="20" height="16" rx="3" />
+        <path d="m2 7 10 7 10-7" />
+      </svg>
+    ),
+  },
+  {
+    label: 'Location',
+    value: 'Baghdad, Iraq',
+    href: null,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ width: 20, height: 20 }}>
+        <path d="M12 2C8.134 2 5 5.134 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7z" />
+        <circle cx="12" cy="9" r="2.5" />
+      </svg>
+    ),
+  },
+  {
+    label: 'Hours',
+    value: 'Mon – Fri, 9am – 6pm',
+    href: null,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ width: 20, height: 20 }}>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7v5l3 3" />
+      </svg>
+    ),
+  },
+];
+
+const SOCIALS = [
+  {
+    label: 'Instagram',
+    href: '#',
+    color: '#E1306C',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: 18, height: 18 }}>
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
+      </svg>
+    ),
+  },
+  {
+    label: 'LinkedIn',
+    href: '#',
+    color: '#0A66C2',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: 18, height: 18 }}>
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+      </svg>
+    ),
+  },
+  {
+    label: 'Behance',
+    href: '#',
+    color: '#1769FF',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: 18, height: 18 }}>
+        <path d="M6.938 4.503c.702 0 1.34.06 1.92.188.577.13 1.07.33 1.485.61.41.28.733.65.96 1.12.225.47.34 1.05.34 1.73 0 .74-.17 1.36-.507 1.86-.338.49-.837.9-1.502 1.22.906.26 1.576.72 2.022 1.37.448.66.665 1.45.665 2.36 0 .75-.13 1.39-.41 1.93-.28.55-.67 1-1.16 1.35-.48.348-1.05.6-1.69.767-.63.17-1.3.254-2.006.254H0V4.5h6.938v.003zm-.412 5.53c.585 0 1.052-.14 1.395-.43.34-.29.51-.724.51-1.31 0-.32-.056-.588-.17-.8-.11-.214-.267-.387-.46-.514-.19-.13-.42-.22-.67-.27-.26-.05-.535-.075-.82-.075H3.26V10.03h3.266v.003zm.15 5.77c.31 0 .6-.03.87-.09s.5-.16.7-.3c.197-.14.353-.32.467-.55.11-.23.17-.51.17-.84 0-.67-.19-1.16-.57-1.47-.38-.308-.884-.463-1.508-.463H3.26v3.714h3.414v-.003zm8.433-1.35c.34.33.837.495 1.494.495.465 0 .867-.116 1.205-.35.337-.236.543-.485.616-.75h2.56c-.41 1.28-1.04 2.2-1.893 2.76-.852.56-1.884.84-3.097.84-.84 0-1.598-.135-2.273-.404-.675-.27-1.248-.65-1.72-1.14-.47-.49-.833-1.08-1.085-1.76-.253-.68-.38-1.43-.38-2.24 0-.787.13-1.52.39-2.19.26-.67.63-1.25 1.108-1.74.478-.49 1.05-.87 1.718-1.14.667-.27 1.408-.4 2.223-.4.91 0 1.71.175 2.4.524.69.35 1.26.82 1.71 1.42.45.6.775 1.29.975 2.07.2.78.27 1.6.21 2.46H15.2c0 .74.2 1.28.54 1.61l-.003-.002zm2.62-4.396c-.27-.3-.7-.45-1.3-.45-.38 0-.694.063-.944.19-.25.127-.45.285-.6.474-.15.188-.253.39-.31.6-.057.21-.09.41-.1.59h3.794c-.09-.64-.273-1.104-.54-1.404zM16.42 5.1h4.72v1.26h-4.72V5.1z" />
+      </svg>
+    ),
+  },
+];
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: '', email: '', company: '', service: '', budget: '', message: '', newsletter: false });
-  const [submitted, setSubmitted] = useState(false);
-  const [focused, setFocused] = useState(null);
-  const [errors, setErrors] = useState({});
-
-  const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
-
-  const validate = () => {
-    const e = {};
-    if (!form.name.trim()) e.name = 'Required';
-    if (!form.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) e.email = 'Valid email required';
-    if (!form.message.trim()) e.message = 'Tell us a bit about your project';
-    return e;
-  };
-
-  const submit = (e) => {
-    e.preventDefault();
-    const errs = validate();
-    if (Object.keys(errs).length) { setErrors(errs); return; }
-    setSubmitted(true);
-  };
-
-  const inputStyle = (key) => ({
-    width: '100%',
-    background: focused === key ? 'rgba(34,13,56,0.8)' : 'rgba(26,9,38,0.6)',
-    border: `1.5px solid ${errors[key] ? '#cc44dd' : focused === key ? 'rgba(200,50,212,0.5)' : 'rgba(232,180,248,0.12)'}`,
-    borderRadius: 12, padding: '16px 20px',
-    fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: '#f0e4ff',
-    outline: 'none', transition: 'all 0.2s ease', boxSizing: 'border-box',
-  });
-
-  const labelStyle = { fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 600, color: '#a07ab8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 8, display: 'block' };
-
-  if (submitted) {
-    return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '120px 40px', textAlign: 'center' }}>
-        <div style={{ maxWidth: 560 }}>
-          <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'linear-gradient(135deg, #c832d4, #8b1fa8)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 32px', boxShadow: '0 0 40px rgba(200,50,212,0.4)', fontSize: 32 }}>✓</div>
-          <h2 style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400, fontSize: 48, color: '#f0e4ff', letterSpacing: '-0.02em', marginBottom: 20 }}>Message received.</h2>
-          <p style={{ color: '#a07ab8', fontFamily: "'DM Sans', sans-serif", fontSize: 18, lineHeight: 1.7, marginBottom: 40 }}>We'll review your brief and be in touch within one business day. Something worth doing is worth doing quickly.</p>
-          <PrimaryBtn onClick={() => { setSubmitted(false); setForm({ name: '', email: '', company: '', service: '', budget: '', message: '', newsletter: false }); }}>Send Another Message</PrimaryBtn>
-        </div>
-      </div>
-    );
-  }
+  const [hoveredContact, setHoveredContact] = useState(null);
+  const [hoveredSocial, setHoveredSocial] = useState(null);
 
   return (
-    <div>
-      <section style={{ padding: '160px 40px 80px', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: 700, height: 500, background: 'radial-gradient(ellipse at 50% 0%, rgba(200,50,212,0.12) 0%, transparent 65%)', pointerEvents: 'none' }} />
-        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
-          <div>
-            <Tag>Contact</Tag>
-            <h1 style={{ marginTop: 20, fontFamily: "'DM Serif Display', serif", fontWeight: 400, fontSize: 'clamp(44px, 5.5vw, 68px)', lineHeight: 1.1, color: '#f0e4ff', letterSpacing: '-0.03em' }}>
-              Let's make<br />something<br /><em style={{ color: '#cc44dd' }}>great</em>
-            </h1>
-            <p style={{ marginTop: 24, color: '#a07ab8', fontFamily: "'DM Sans', sans-serif", fontSize: 17, lineHeight: 1.8, maxWidth: 400 }}>Tell us about your brand and what you're looking to achieve. We'll come back with a clear plan — no fluff, no vague promises.</p>
+    <div style={{ position: 'relative', minHeight: '100vh' }}>
+      <section style={{ padding: '160px 40px 140px', position: 'relative', overflow: 'hidden' }}>
+        {/* Ambient glows */}
+        <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: 1000, height: 600, background: 'radial-gradient(ellipse at 50% 0%, rgba(200,50,212,0.14) 0%, transparent 65%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', bottom: '20%', right: '-10%', width: 600, height: 600, background: 'radial-gradient(ellipse, rgba(139,31,168,0.06) 0%, transparent 60%)', pointerEvents: 'none' }} />
 
-            <div style={{ marginTop: 48, display: 'flex', flexDirection: 'column', gap: 24 }}>
-              {[
-                { label: 'Email', value: 'hello@magicteam.co' },
-                { label: 'Phone', value: '+1 555 000 0000' },
-                { label: 'Location', value: 'Baghdad, Iraq' },
-                { label: 'Hours', value: 'Mon–Fri, 9am–6pm' },
-              ].map(item => (
-                <div key={item.label} style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
-                  <div style={{ minWidth: 80, color: '#5c4470', fontFamily: "'DM Sans', sans-serif", fontSize: 13, letterSpacing: '0.08em', textTransform: 'uppercase', paddingTop: 2 }}>{item.label}</div>
-                  <div style={{ color: '#c4a4d8', fontFamily: "'DM Sans', sans-serif", fontSize: 15 }}>{item.value}</div>
-                </div>
-              ))}
-            </div>
+        <div style={{ maxWidth: 1000, margin: '0 auto' }}>
+          <Tag>Contact</Tag>
 
-            <div style={{ marginTop: 48, height: 200, borderRadius: 16, background: 'repeating-linear-gradient(135deg, rgba(232,180,248,0.02) 0px, rgba(232,180,248,0.02) 1px, transparent 1px, transparent 28px), #1a0926', border: '1px solid rgba(232,180,248,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
-              <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 50% 50%, rgba(200,50,212,0.06) 0%, transparent 60%)' }} />
-              <div style={{ textAlign: 'center', zIndex: 1 }}>
-                <div style={{ color: '#cc44dd', fontSize: 20, marginBottom: 6 }}>◎</div>
-                <span style={{ color: '#3d1d55', fontFamily: 'monospace', fontSize: 12, letterSpacing: '0.08em' }}>[ map placeholder ]</span>
-              </div>
+          {/* Headline */}
+          <h1 style={{
+            marginTop: 28,
+            fontFamily: "'DM Serif Display', serif",
+            fontWeight: 400,
+            fontSize: 'clamp(52px, 7vw, 92px)',
+            lineHeight: 1.04,
+            color: '#f0e4ff',
+            letterSpacing: '-0.03em',
+          }}>
+            Let's make<br />something<br />
+            <em style={{ color: '#cc44dd', fontStyle: 'italic' }}>great together.</em>
+          </h1>
+
+          <p style={{
+            marginTop: 32,
+            color: '#a07ab8',
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: 18,
+            lineHeight: 1.85,
+            maxWidth: 540,
+          }}>
+            Tell us about your brand and what you want to achieve. We'll come back with a clear plan — no fluff, no vague promises. Just results.
+          </p>
+
+          {/* ── Contact info cards ── */}
+          <div style={{ marginTop: 72 }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 700, color: '#5c4470', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 20 }}>Get in touch</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {CONTACT_ITEMS.map((item, i) => {
+                const active = hoveredContact === i;
+                const wrap = (children) => item.href
+                  ? <a key={item.label} href={item.href} style={{ textDecoration: 'none' }}>{children}</a>
+                  : <div key={item.label}>{children}</div>;
+
+                return wrap(
+                  <div
+                    onMouseEnter={() => setHoveredContact(i)}
+                    onMouseLeave={() => setHoveredContact(null)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 18,
+                      padding: '18px 22px',
+                      borderRadius: 14,
+                      background: active ? 'rgba(200,50,212,0.07)' : 'transparent',
+                      border: `1px solid ${active ? 'rgba(200,50,212,0.2)' : 'transparent'}`,
+                      transition: 'all 0.22s ease',
+                      cursor: item.href ? 'pointer' : 'default',
+                    }}
+                  >
+                    <div style={{
+                      width: 46,
+                      height: 46,
+                      borderRadius: 12,
+                      background: active ? 'rgba(200,50,212,0.16)' : 'rgba(232,180,248,0.06)',
+                      border: `1px solid ${active ? 'rgba(200,50,212,0.3)' : 'rgba(232,180,248,0.1)'}`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: active ? '#cc44dd' : '#7a5a90',
+                      transition: 'all 0.22s ease',
+                      flexShrink: 0,
+                    }}>
+                      {item.icon}
+                    </div>
+                    <div>
+                      <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 700, color: '#5c4470', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 3 }}>{item.label}</div>
+                      <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: active ? '#e8d0ff' : '#c4a4d8', transition: 'color 0.22s ease', fontWeight: 500 }}>{item.value}</div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
+          {/* Divider */}
+          <div style={{ margin: '56px 0', height: 1, background: 'linear-gradient(90deg, rgba(200,50,212,0.3) 0%, rgba(232,180,248,0.06) 55%, transparent 100%)' }} />
+
+          {/* ── Social media ── */}
           <div>
-            <form onSubmit={submit} style={{ background: 'rgba(26,9,38,0.6)', borderRadius: 24, border: '1px solid rgba(232,180,248,0.1)', padding: '48px 44px' }}>
-              <h3 style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400, fontSize: 28, color: '#f0e4ff', marginBottom: 8 }}>Start a conversation</h3>
-              <p style={{ color: '#a07ab8', fontFamily: "'DM Sans', sans-serif", fontSize: 14, lineHeight: 1.6, marginBottom: 36 }}>We reply within one business day.</p>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 700, color: '#5c4470', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 20 }}>Find us online</p>
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+              {SOCIALS.map((s, i) => {
+                const active = hoveredSocial === i;
+                return (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onMouseEnter={() => setHoveredSocial(i)}
+                    onMouseLeave={() => setHoveredSocial(null)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      padding: '12px 20px',
+                      borderRadius: 12,
+                      background: active ? `${s.color}18` : 'rgba(232,180,248,0.05)',
+                      border: `1px solid ${active ? `${s.color}44` : 'rgba(232,180,248,0.1)'}`,
+                      textDecoration: 'none',
+                      transition: 'all 0.22s ease',
+                      cursor: 'pointer',
+                      color: active ? s.color : '#7a5a90',
+                    }}
+                  >
+                    {s.icon}
+                    <span style={{
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontWeight: 600,
+                      fontSize: 14,
+                      color: active ? s.color : '#a07ab8',
+                      transition: 'color 0.22s ease',
+                      letterSpacing: '0.01em',
+                    }}>
+                      {s.label}
+                    </span>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 20 }}>
-                <div>
-                  <label style={labelStyle}>Name *</label>
-                  <input value={form.name} onChange={e => set('name', e.target.value)} onFocus={() => setFocused('name')} onBlur={() => setFocused(null)} placeholder="Your name" style={inputStyle('name')} />
-                  {errors.name && <span style={{ color: '#cc44dd', fontSize: 12, fontFamily: "'DM Sans', sans-serif", marginTop: 4, display: 'block' }}>{errors.name}</span>}
-                </div>
-                <div>
-                  <label style={labelStyle}>Email *</label>
-                  <input value={form.email} onChange={e => set('email', e.target.value)} onFocus={() => setFocused('email')} onBlur={() => setFocused(null)} placeholder="you@company.com" type="email" style={inputStyle('email')} />
-                  {errors.email && <span style={{ color: '#cc44dd', fontSize: 12, fontFamily: "'DM Sans', sans-serif", marginTop: 4, display: 'block' }}>{errors.email}</span>}
-                </div>
-              </div>
-
-              <div style={{ marginBottom: 20 }}>
-                <label style={labelStyle}>Company / Brand</label>
-                <input value={form.company} onChange={e => set('company', e.target.value)} onFocus={() => setFocused('company')} onBlur={() => setFocused(null)} placeholder="Your brand name" style={inputStyle('company')} />
-              </div>
-
-              <div style={{ marginBottom: 20 }}>
-                <label style={labelStyle}>Service of Interest</label>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                  {SERVICES_LIST.map(s => (
-                    <button key={s} type="button" onClick={() => set('service', s)} style={{ background: form.service === s ? 'linear-gradient(135deg, #c832d4, #8b1fa8)' : 'transparent', border: `1px solid ${form.service === s ? 'transparent' : 'rgba(232,180,248,0.15)'}`, borderRadius: 100, cursor: 'pointer', fontFamily: "'DM Sans', sans-serif", fontWeight: 500, fontSize: 13, color: form.service === s ? '#fff' : '#a07ab8', padding: '8px 16px', transition: 'all 0.2s' }}>{s}</button>
-                  ))}
-                </div>
-              </div>
-
-              <div style={{ marginBottom: 20 }}>
-                <label style={labelStyle}>Budget Range</label>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                  {BUDGETS.map(b => (
-                    <button key={b} type="button" onClick={() => set('budget', b)} style={{ background: form.budget === b ? 'rgba(200,50,212,0.15)' : 'transparent', border: `1px solid ${form.budget === b ? 'rgba(200,50,212,0.4)' : 'rgba(232,180,248,0.12)'}`, borderRadius: 100, cursor: 'pointer', fontFamily: "'DM Sans', sans-serif", fontWeight: 500, fontSize: 13, color: form.budget === b ? '#cc44dd' : '#a07ab8', padding: '8px 16px', transition: 'all 0.2s' }}>{b}</button>
-                  ))}
-                </div>
-              </div>
-
-              <div style={{ marginBottom: 28 }}>
-                <label style={labelStyle}>Tell Us About Your Project *</label>
-                <textarea value={form.message} onChange={e => set('message', e.target.value)} onFocus={() => setFocused('message')} onBlur={() => setFocused(null)} placeholder="What are you working on? What does success look like for you?" rows={5} style={{ ...inputStyle('message'), resize: 'vertical', minHeight: 120 }} />
-                {errors.message && <span style={{ color: '#cc44dd', fontSize: 12, fontFamily: "'DM Sans', sans-serif", marginTop: 4, display: 'block' }}>{errors.message}</span>}
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 32 }}>
-                <button type="button" onClick={() => set('newsletter', !form.newsletter)} style={{ width: 44, height: 24, borderRadius: 12, background: form.newsletter ? 'linear-gradient(135deg, #c832d4, #8b1fa8)' : 'rgba(232,180,248,0.1)', border: '1px solid rgba(232,180,248,0.2)', cursor: 'pointer', position: 'relative', transition: 'all 0.3s', flexShrink: 0 }}>
-                  <div style={{ position: 'absolute', top: 3, left: form.newsletter ? 22 : 3, width: 16, height: 16, borderRadius: '50%', background: '#fff', transition: 'left 0.3s' }} />
-                </button>
-                <label style={{ color: '#a07ab8', fontFamily: "'DM Sans', sans-serif", fontSize: 13, cursor: 'pointer' }} onClick={() => set('newsletter', !form.newsletter)}>Subscribe to our occasional insights newsletter</label>
-              </div>
-
-              <button type="submit" style={{ width: '100%', background: 'linear-gradient(135deg, #c832d4, #8b1fa8)', border: 'none', borderRadius: 12, cursor: 'pointer', fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 16, color: '#fff', padding: '18px 32px', boxShadow: '0 0 32px rgba(200,50,212,0.25)', transition: 'all 0.25s ease', letterSpacing: '0.01em' }}
-                onMouseEnter={e => { e.target.style.boxShadow = '0 8px 40px rgba(200,50,212,0.45)'; e.target.style.transform = 'translateY(-1px)'; }}
-                onMouseLeave={e => { e.target.style.boxShadow = '0 0 32px rgba(200,50,212,0.25)'; e.target.style.transform = 'none'; }}>
-                Send Message →
-              </button>
-            </form>
+          {/* ── Map placeholder ── */}
+          <div style={{
+            marginTop: 64,
+            height: 240,
+            borderRadius: 20,
+            background: 'repeating-linear-gradient(135deg, rgba(232,180,248,0.02) 0px, rgba(232,180,248,0.02) 1px, transparent 1px, transparent 32px), #100620',
+            border: '1px solid rgba(232,180,248,0.07)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'relative',
+            overflow: 'hidden',
+          }}>
+            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 50% 55%, rgba(200,50,212,0.08) 0%, transparent 55%)' }} />
+            {/* Pin dot */}
+            <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -60%)', width: 10, height: 10, borderRadius: '50%', background: '#cc44dd', boxShadow: '0 0 0 6px rgba(200,50,212,0.15), 0 0 0 14px rgba(200,50,212,0.07)' }} />
+            <div style={{ textAlign: 'center', zIndex: 1, marginTop: 28 }}>
+              <span style={{ color: '#3d1d55', fontFamily: 'monospace', fontSize: 11, letterSpacing: '0.12em' }}>BAGHDAD, IRAQ</span>
+            </div>
           </div>
         </div>
       </section>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { PrimaryBtn, SecondaryBtn, Tag, SectionHeading } from '../components/shared';
+import { Tag, SectionHeading } from '../components/shared';
 
 const TEAM = [
   { name: 'Sarah Hussien', role: 'Founder & Creative Director', bio: 'Brand strategist and storyteller with 10+ years building category-defining brands across MENA and Europe.', initials: 'SH' },
@@ -138,18 +138,6 @@ export default function AboutPage({ navigate }) {
         </div>
       </section>
 
-      <section style={{ padding: '80px 40px 120px', background: '#0f0619', borderTop: '1px solid rgba(232,180,248,0.06)', textAlign: 'center' }}>
-        <div style={{ maxWidth: 580, margin: '0 auto' }}>
-          <h2 style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400, fontSize: 'clamp(36px, 4.5vw, 56px)', color: '#f0e4ff', lineHeight: 1.15, letterSpacing: '-0.02em' }}>
-            Want to be part of<br />something <em style={{ color: '#cc44dd' }}>great</em>?
-          </h2>
-          <p style={{ marginTop: 20, color: '#a07ab8', fontFamily: "'DM Sans', sans-serif", fontSize: 17, lineHeight: 1.7 }}>Whether you're a brand or a talent — let's talk.</p>
-          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', marginTop: 36, flexWrap: 'wrap' }}>
-            <PrimaryBtn large onClick={() => navigate('contact')}>Work With Us →</PrimaryBtn>
-            <SecondaryBtn large onClick={() => navigate('work')}>See Our Work</SecondaryBtn>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { PrimaryBtn, SecondaryBtn, Tag, SectionHeading } from '../components/shared';
+import { PrimaryBtn, Tag, SectionHeading } from '../components/shared';
 
 const SERVICES_FULL = [
   { num: '01', title: 'Brand Strategy', desc: 'Positioning is everything. We dig deep into your market, audience, and competitive landscape to define a brand position that is ownable, credible, and magnetic.', points: ['Brand Positioning & Messaging', 'Audience & Competitor Research', 'Brand Voice & Tone', 'Visual Identity Direction'], accent: '#cc44dd' },
@@ -10,11 +10,6 @@ const SERVICES_FULL = [
   { num: '06', title: 'Creative Direction', desc: 'Need someone to hold the creative vision? We embed as your creative lead — directing shoots, guiding agencies, and ensuring brand consistency across every touchpoint.', points: ['Art Direction', 'Shoot Direction', 'Brand Consistency Audits', 'Agency Management'], accent: '#8b3fc4' },
 ];
 
-const PACKAGES = [
-  { name: 'Launch', price: 'From $3,500', period: '/month', desc: 'Everything you need to launch a polished, professional brand presence.', features: ['Brand Positioning', 'Visual Identity', 'Social Media Setup (2 channels)', 'Monthly Content Plan', '1× Campaign / Quarter'], cta: 'Get Started', highlight: false },
-  { name: 'Growth', price: 'From $7,200', period: '/month', desc: 'For brands ready to invest in consistent, compounding growth across all channels.', features: ['Everything in Launch', 'Paid Social Campaigns', 'Email Automation', 'Weekly Content (4 channels)', 'Monthly Strategy Review', 'Dedicated Account Lead'], cta: 'Start Growing', highlight: true },
-  { name: 'Enterprise', price: 'Custom', period: '', desc: 'Full-service partnership for large brands with complex, multi-market needs.', features: ['Full Retainer Access', 'Creative Direction', 'Integrated Campaigns', 'Priority Support', 'Quarterly Brand Audits', 'Custom Reporting Dashboard'], cta: "Let's Talk", highlight: false },
-];
 
 function ServiceCard({ s, index }) {
   const [hov, setHov] = useState(false);
@@ -51,47 +46,6 @@ function ServiceCard({ s, index }) {
   );
 }
 
-function PricingCard({ pkg, navigate }) {
-  const [hov, setHov] = useState(false);
-  return (
-    <div
-      onMouseEnter={() => setHov(true)}
-      onMouseLeave={() => setHov(false)}
-      style={{
-        padding: '48px 40px', borderRadius: 20,
-        border: pkg.highlight ? '1px solid rgba(200,50,212,0.5)' : '1px solid rgba(232,180,248,0.1)',
-        background: pkg.highlight ? 'linear-gradient(135deg, rgba(34,13,56,0.95), rgba(50,15,70,0.95))' : 'rgba(34,13,56,0.3)',
-        position: 'relative', transition: 'all 0.3s ease',
-        transform: pkg.highlight ? 'scale(1.03)' : hov ? 'translateY(-4px)' : 'none',
-        boxShadow: pkg.highlight ? '0 0 60px rgba(200,50,212,0.15)' : 'none',
-      }}
-    >
-      {pkg.highlight && (
-        <div style={{ position: 'absolute', top: -14, left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(135deg, #c832d4, #8b1fa8)', borderRadius: 100, padding: '5px 18px', fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 12, color: '#fff', letterSpacing: '0.06em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>Most Popular</div>
-      )}
-      <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 16, color: '#a07ab8', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 16 }}>{pkg.name}</h3>
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, marginBottom: 16 }}>
-        <span style={{ fontFamily: "'DM Serif Display', serif", fontSize: 40, color: '#f0e4ff', fontWeight: 400 }}>{pkg.price}</span>
-        {pkg.period && <span style={{ color: '#5c4470', fontFamily: "'DM Sans', sans-serif", fontSize: 15 }}>{pkg.period}</span>}
-      </div>
-      <p style={{ color: '#a07ab8', fontFamily: "'DM Sans', sans-serif", fontSize: 14, lineHeight: 1.6, marginBottom: 32 }}>{pkg.desc}</p>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 40 }}>
-        {pkg.features.map(f => (
-          <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div style={{ width: 18, height: 18, borderRadius: '50%', background: 'rgba(200,50,212,0.15)', border: '1px solid rgba(200,50,212,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              <span style={{ color: '#cc44dd', fontSize: 10 }}>✓</span>
-            </div>
-            <span style={{ color: '#c4a4d8', fontFamily: "'DM Sans', sans-serif", fontSize: 14 }}>{f}</span>
-          </div>
-        ))}
-      </div>
-      {pkg.highlight
-        ? <PrimaryBtn onClick={() => navigate('contact')}>{pkg.cta} →</PrimaryBtn>
-        : <SecondaryBtn onClick={() => navigate('contact')}>{pkg.cta} →</SecondaryBtn>
-      }
-    </div>
-  );
-}
 
 export default function ServicesPage({ navigate }) {
   useEffect(() => {
@@ -122,18 +76,6 @@ export default function ServicesPage({ navigate }) {
         </div>
       </section>
 
-      <section style={{ padding: '100px 40px 120px', background: '#0f0619', borderTop: '1px solid rgba(232,180,248,0.06)' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <SectionHeading tag="Pricing" title={"Transparent investment.\nMeasurable returns."} center subtitle="Flexible packages designed for where you are — and built to scale with you." />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24, alignItems: 'stretch' }}>
-            {PACKAGES.map((pkg, i) => <PricingCard key={i} pkg={pkg} navigate={navigate} />)}
-          </div>
-          <p style={{ textAlign: 'center', marginTop: 40, color: '#5c4470', fontFamily: "'DM Sans', sans-serif", fontSize: 14 }}>
-            All packages include onboarding, monthly reporting, and a dedicated point of contact. &nbsp;
-            <span onClick={() => navigate('contact')} style={{ color: '#cc44dd', cursor: 'pointer', textDecoration: 'underline' }}>Custom scope? Let's talk.</span>
-          </p>
-        </div>
-      </section>
 
       <section style={{ padding: '120px 40px', textAlign: 'center' }}>
         <div style={{ maxWidth: 640, margin: '0 auto' }}>

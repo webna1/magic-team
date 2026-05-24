@@ -5,6 +5,7 @@ import ServicesPage from './pages/ServicesPage';
 import WorkPage from './pages/WorkPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
+import WhatsAppFloat from './components/WhatsAppFloat';
 import './index.css';
 
 function useMagicCursor() {
@@ -104,6 +105,7 @@ export default function App() {
         {pageMap[page] || pageMap.home}
       </main>
       <Footer navigate={navigate} />
+      <WhatsAppFloat />
     </div>
   );
 }
